@@ -2,6 +2,8 @@ server:
   port: 8912
   tomcat:
     uri-encoding: UTF-8  
+  servlet:
+    context-path: /netty  
 
 spring:
   datasource:
@@ -10,4 +12,8 @@ spring:
     username: root
     password: xue13581321
     type: com.zaxxer.hikari.HikariDataSource
+    
+  resources:
+    static-locations:
+    - /resources
     

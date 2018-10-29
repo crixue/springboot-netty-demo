@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrj.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.xrj.pojo.Comment">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="user_uuid" jdbcType="CHAR" property="userUuid" />
+    <result column="article_uuid" jdbcType="CHAR" property="articleUuid" />
+    <result column="best_status" jdbcType="BIT" property="bestStatus" />
+    <result column="audit_status" jdbcType="BIT" property="auditStatus" />
+    <result column="zan" jdbcType="INTEGER" property="zan" />
+    <result column="pri_data" jdbcType="VARCHAR" property="priData" />
+    <result column="best_time" jdbcType="TIMESTAMP" property="bestTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="comment_type" jdbcType="BIT" property="commentType" />
+    <result column="p_uuid" jdbcType="VARCHAR" property="pUuid" />
+  </resultMap>
+  
+  <select id="getCommentByArticleUuid" resultType="com.xrj.pojo.Comment">
+  	SELECT * FROM xh_comment where article_uuid = #{articleUuid}
+  </select>
+</mapper>
