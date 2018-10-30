@@ -1,5 +1,5 @@
 server:
-  port: 8912
+  port: 12010
   tomcat:
     uri-encoding: UTF-8  
   servlet:
@@ -8,12 +8,26 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/muxin-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    url: jdbc:mysql://120.92.35.156:3306/xinhua?useSSL=false&serverTimezone=UTC
     username: root
-    password: xue13581321
-    type: com.zaxxer.hikari.HikariDataSource
+    password: foundao@2016.com
     
+            
   resources:
     static-locations:
     - /resources
+  cache:
+    ehcache:
+      config: classpath:config/ehcache.xml
     
+mybatis:
+  type-aliases-package: com.xrj.pojo
+  mapper-locations:
+  - classpath:mapper/*.xml
+mapper:
+  not-empty: false
+  identity: MYSQL
+  
+pagehelper:
+  helper-dialect: mysql
+  params: count=countsql

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+    <diskStore path="java.io.tmpdir/ehcache"/>
+    <defaultCache eternal="false" timeToIdleSeconds="60" timeToLiveSeconds="60">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+    <cache name="HelloWorldCache" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="5" timeToLiveSeconds="5"/>
+    <cache name="1" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="1" timeToLiveSeconds="1"/>
+    <cache name="2" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="2" timeToLiveSeconds="2"/>
+    <cache name="5" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="5" timeToLiveSeconds="5"/>
+    <cache name="10" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="10" timeToLiveSeconds="10"/>
+    <cache name="20" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="20" timeToLiveSeconds="20"/>
+    <cache name="50" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="50" timeToLiveSeconds="50"/>
+    <cache name="100" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="100" timeToLiveSeconds="100"/>
+    <cache name="300" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="300" timeToLiveSeconds="300"/>
+    <cache name="3600" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="3600" timeToLiveSeconds="3600"/>
+    <cache name="43200" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="43200" timeToLiveSeconds="43200"/>
+    <cache name="86400" maxElementsInMemory="10000" eternal="false" overflowToDisk="true"
+           timeToIdleSeconds="86400" timeToLiveSeconds="586400"/>
+</ehcache>

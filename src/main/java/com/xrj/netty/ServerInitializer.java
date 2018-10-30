@@ -11,9 +11,9 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 
-	private static final int READ_IDEL_TIME_OUT = 8; // 读超时
-	private static final int WRITE_IDEL_TIME_OUT = 10;// 写超时
-	private static final int ALL_IDEL_TIME_OUT = 0; // 所有超时
+	private static final int READ_IDEL_TIME_OUT = 300; // 读超时
+	private static final int WRITE_IDEL_TIME_OUT = 180;// 写超时
+	private static final int ALL_IDEL_TIME_OUT = 600; // 所有超时
 
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {

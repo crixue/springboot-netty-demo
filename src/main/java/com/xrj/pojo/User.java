@@ -1,11 +1,20 @@
 package com.xrj.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "xh_user")
-public class User {
-    @Id
+public class User implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5358840619608732009L;
+
+	@Id
     private Integer uid;
 
     /**

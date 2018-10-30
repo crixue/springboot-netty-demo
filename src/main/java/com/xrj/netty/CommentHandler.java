@@ -1,7 +1,21 @@
 package com.xrj.netty;
 
+import java.util.Date;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+
 import com.alibaba.fastjson.JSONObject;
 import com.xrj.common.ServerResponse;
+import com.xrj.enums.MsgActionEnum;
+import com.xrj.pojo.User;
+import com.xrj.service.CommentService;
+import com.xrj.service.UserService;
+import com.xrj.util.JwtTokenUtil;
+import com.xrj.util.JwtUser;
+import com.xrj.util.SpringUtil;
+import com.xrj.vo.CommentVO;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -25,11 +39,53 @@ public class CommentHandler extends SimpleChannelInboundHandler<TextWebSocketFra
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
+		CommentService commentService = SpringUtil.getBean("commentService", CommentService.class);
+		UserService userService = SpringUtil.getBean("userService", UserService.class);
 		String content = msg.text();
 		
 		Channel channel = ctx.channel();
 		
-		String json = JSONObject.toJSONString(ServerResponse.createBySucessResReturnData(content));
+		//解析用户的消息
+		CommentVO commentVO = null;
+		User user = null;
+		if (StringUtils.isNotBlank(content)) {
+			commentVO = JSONObject.parseObject(content, CommentVO.class);
+			String userUuid = StringUtils.EMPTY;
+			if (StringUtils.isNotBlank(commentVO.getAuthToken())) {
+				String authToken = commentVO.getAuthToken();
+				JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+				JwtUser jwtUser = jwtTokenUtil.getJwtUser(authToken);
+				if (jwtUser != null) {
+					userUuid = jwtUser.getUuid();
+					
+					user = userService.getUserByUuid(userUuid);
+					commentVO.setUserUuid(userUuid);
+					BeanUtils.copyProperties(user, commentVO);
+				}
+			}
+			
+			String randomUuid = UUID.randomUUID().toString();
+			if (commentVO.getActionType() == MsgActionEnum.CONNECT.getType()) {  //初次连接建立关系
+				UserChannelRleation.put(userUuid == null ? randomUuid : userUuid,
+						channel);
+				UserChannelRleation.output();
+				
+			} else if (commentVO.getActionType() == MsgActionEnum.COMMENT.getType()) {  //用户发评论
+				commentVO.setUuid(randomUuid);
+				commentVO.setAddTime(new Date());
+				int ret = commentService.insertComment(commentVO);
+				if (ret == 0) { //TODO
+					
+				}
+				
+			}
+			
+		} else {
+			commentVO = new CommentVO();
+		}
+		commentVO.setCurrentUserNums(users.size());
+		
+		String json = JSONObject.toJSONString(ServerResponse.createBySucessResReturnData(commentVO));
 		users.writeAndFlush(new TextWebSocketFrame(json));
 		
 	}
