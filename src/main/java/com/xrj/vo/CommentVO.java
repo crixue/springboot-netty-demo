@@ -48,5 +48,6 @@ public class CommentVO extends Comment{
 		commentVO.setContent("挺好的呀!");
 		commentVO.setArticleUuid("6ec7a046-b41b-404d-8184-131134778d28");
 		System.out.println(JSONObject.toJSONString(commentVO));;
+		
 	}
 }

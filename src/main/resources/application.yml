@@ -5,13 +5,28 @@ server:
   servlet:
     context-path: /netty  
 
+logging:
+  config: classpath:config/logback-spring.xml
+#  path: /app/springboot-netty-xinhua/logs
+#  level:
+#    root: info
+#    com.xrj: debug
+
+# 生成的公钥
+public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAN4tXRe9w8xPnqbSrqS9/U5RG5UQnI2CPtNf+zoh9ATySPRJfFvdLy3izq2p0kNYhQ31NAcoASl55yHprlWg+I0CAwEAAQ==
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.92.35.156:3306/xinhua?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://120.92.35.156:3306/xinhua?useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: foundao@2016.com
-    
+    password: vo4jxKPndWmEYT8tsB5vScbYSmtzQkTkvcQoQBFerC7VgRMPmBb+yQLNBUopMZM4+H7LGBAtGZ2M/le6bZ6PbQ==
+    druid:
+      ## 配置 connection-properties，启用加密，配置公钥
+      connection-properties: config.decrypt=true;config.decrypt.key=${public-key}
+      # 启用ConfigFilter
+      filter:
+        config:
+          enabled: true
             
   resources:
     static-locations:

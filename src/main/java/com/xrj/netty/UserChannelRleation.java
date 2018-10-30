@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.netty.channel.Channel;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UserChannelRleation {
 
 	private static Map<String, Channel> manager = new HashMap<>();
@@ -19,8 +21,7 @@ public class UserChannelRleation {
 	
 	public static void output() {
 		for (HashMap.Entry<String, Channel> entry : manager.entrySet()) {
-			System.out.println("UserId: " + entry.getKey() 
-							+ ", ChannelId: " + entry.getValue().id().asLongText());
+			log.debug("UserId:{}, ChannelId:{}", entry.getKey(), entry.getValue().id().asLongText());
 		}
 	}
 	
